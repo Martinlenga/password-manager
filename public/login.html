@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <style>
+        /* Body Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9; /* Light background color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            text-decoration: underline;
+        }
+
+        /* Form Container */
+        form {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /* Flexbox layout for label and input side by side */
+        .input-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        label {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #555;
+            margin-right: 10px;
+            width: 80px; /* Adjust width of the label */
+            text-align: left;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: calc(100% - 100px); /* Input width adjusts to the remaining space */
+            padding: 12px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #3498db; /* Blue border on focus */
+            outline: none;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: auto;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+
+        /* Links Styling */
+        .links {
+            margin-top: 20px;
+            font-size: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .links a {
+            color: #7e059c; 
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .links a:hover {
+            color: #cc01ff; 
+            text-decoration: underline;
+        }
+
+        /* Message Container */
+        #message {
+            margin-top: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* Responsive Styles */
+        @media screen and (max-width: 600px) {
+            form {
+                padding: 20px;
+            }
+
+            .input-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            label {
+                margin-right: 0;
+                margin-bottom: 5px;
+                width: auto;
+                text-align: left;
+            }
+
+            input[type="email"],
+            input[type="password"] {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+
+            button {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2>User Login</h2>
+        <form id="loginForm">
+            <div class="input-container">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required><br>
+            </div>
+            
+            <div class="input-container">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required><br>
+            </div>
+            
+            <button type="submit">Login</button>
+
+            <!-- Links placed inside the form and centered -->
+            <div class="links">
+                <a href="register.html">Don't have an account? Register</a>
+                <a href="forgot-password.html">Forgot Password?</a>
+            </div>
+        </form>
+
+        <div id="message"></div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            const formData = {
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            };
+
+            try {
+                const response = await fetch('http://localhost:3000/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Redirect on successful login
+                    document.getElementById('message').textContent = 'Login successful! Redirecting...';
+                    document.getElementById('message').style.color = 'green';
+                    setTimeout(() => {
+                        window.location.href = 'manage-passwords.html';
+                    }, 2000); // Redirect after 2 seconds
+                } else {
+                    document.getElementById('message').textContent = data.message || 'An error occurred. Please try again.';
+                    document.getElementById('message').style.color = 'red';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('message').textContent = 'An error occurred. Please try again.';
+            }
+        });
+    </script>
+</body>
+</html>
