@@ -1,12 +1,12 @@
 # Secure Password Manager
 
-A user-friendly password manager built with Node.js and Express, designed to securely store, manage, and retrieve passwords for various websites. This application provides strong data security with encrypted password storage, user authentication, and intuitive CRUD operations for an easy and streamlined experience.
+A user-friendly password manager built with Node.js and Express, designed to securely store, manage, and retrieve passwords for various websites. This application provides strong data security with encrypted password storage, user authentication, and intuitive operations for an easy and streamlined experience.
 
 ## Features
 
 - **User Authentication**: Each user has a unique, secure account to store and access their passwords.
 - **Encrypted Password Storage**: All passwords are securely encrypted, ensuring that they remain confidential and protected.
-- **CRUD Operations**: Users can create, view, and delete their passwords with ease.
+- **CRUD Operations**: Users can create and view their passwords with ease.
 - **Intuitive Interface**: The design and functionality prioritize simplicity, making it easy to manage your passwords securely.
 
 ## Getting Started
@@ -55,8 +55,6 @@ A user-friendly password manager built with Node.js and Express, designed to sec
 - Access saved passwords in a secure, decrypted format by selecting "View Passwords."
 - Sensitive data remains encrypted and is only decrypted when viewed.
 
-### Update or Delete Passwords
-- Easily update details or delete stored passwords using the edit or delete options.
 
 ## Security
 
@@ -73,7 +71,6 @@ A user-friendly password manager built with Node.js and Express, designed to sec
 ### Password Management
 - `POST /api/passwords`: Create a new password entry
 - `GET /api/passwords`: Retrieve all passwords
-- `DELETE /api/passwords/:id`: Delete a password entry
 
 ## Future Improvements
 
